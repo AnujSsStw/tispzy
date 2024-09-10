@@ -28,8 +28,8 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <ConvexClientProvider>{children}</ConvexClientProvider>
+            <Toaster />
           </ThemeProvider>
-          <Toaster />
         </body>
       </html>
     </ConvexAuthNextjsServerProvider>

@@ -4,12 +4,16 @@ import {
   isAuthenticatedNextjs,
   nextjsMiddlewareRedirect,
 } from "@convex-dev/auth/nextjs/server";
+import { getAuthSessionId } from "@convex-dev/auth/server";
 
 const isSignInPage = createRouteMatcher(["/signin"]);
-const isProtectedRoute = createRouteMatcher(["/dashboard(.*)"]);
+const isProtectedRoute = createRouteMatcher(["/dashboard(.*)", "/worker(.*)"]);
 
 export default convexAuthNextjsMiddleware((request) => {
+  console.log("middleware", request);
+
   if (isSignInPage(request) && isAuthenticatedNextjs()) {
+    // find if the user is logged in from the phone number or the oauth
     return nextjsMiddlewareRedirect(request, "/dashboard");
   }
   if (isProtectedRoute(request) && !isAuthenticatedNextjs()) {
